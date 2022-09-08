@@ -98,9 +98,7 @@ const fetchBookedTicketDetail = async (req, res) => {
 
 const addTicketDetailManually = async (req, res) => {
   if (!req.body) {
-    return res
-      .status(500)
-      .json({ errorMessage: "Please enter data" });
+    return res.status(500).json({ errorMessage: "Please enter data" });
   }
   const result = await BusSchema.insertMany(req.body)
   res.send(result)
