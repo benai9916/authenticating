@@ -24,8 +24,11 @@ mongoose.connect(process.env.MONGO_URL_CONNECT, {
   .catch((error) => console.log('Encounter Error => ',error));
 
 // route
+<<<<<<< HEAD
 app.get('/', (req, res)=>{
   res.send('Works!!')
 })
+=======
+>>>>>>> e310d5254ca58d7fb59e737ea52a7223bc9b3168
 app.use('/api/v1/ticket', ticketRoute)
 app.use('/api/v1', userRouter)
