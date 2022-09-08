@@ -24,6 +24,14 @@ const bookTicket = async (req, res) => {
     // return if ticket already booked
     if (ticket.seatStatus === 'CLOSE') return res.status(500).send({errorMessage: 'Ticket is already booked'})
     
+    // add user
+    if (update.email) {
+      return res.status(400).send({error: 'Cannot add new email id!!'});
+    } else if (update.firstName || update.lastName) {
+      const userDetail = await User.findOne({"_id": req.user}).updateOne({"$set": update})
+      if(!userDetail) return res.status(400).send({error: 'Fail to add user detail'});
+    } 
+
     const result = await BusSchema.findOneAndUpdate({seatNumber:seatNumber}, update, {new:true})
     .populate('userDetail', 'firstName lastName email')
 
