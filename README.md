@@ -83,8 +83,4 @@ API : https://authenticatingapi.herokuapp.com/api/v1/ticket/add
 Method: POST
 Body : { "seatNumber": "1A"}
 ```
-<<<<<<< HEAD
 - Open up all tickets (reset) -> `https://authenticatingapi.herokuapp.com/api/v1/ticket/reset`
-=======
-- Open up all tickets (reset) -> `https://authenticatingapi.herokuapp.com/api/v1/ticket/reset`
->>>>>>> e310d5254ca58d7fb59e737ea52a7223bc9b3168
