@@ -6,7 +6,7 @@
 
 ### Accessing the api's
 - Backend server is deployed in heroku 
-- BASE URL `authenticatingapi.herokuapp.com/api/v1/`
+- BASE URL `https://authenticatingapi.herokuapp.com/api/v1/` if run in local BASE URL `http://localhost:5001`
 - All the routes are protecte via jtw token, it is httponly token
 - To generate token you can register yourself 
 ```
