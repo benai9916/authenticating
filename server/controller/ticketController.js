@@ -24,12 +24,21 @@ const bookTicket = async (req, res) => {
     // return if ticket already booked
     if (ticket.seatStatus === 'CLOSE') return res.status(500).send({errorMessage: 'Ticket is already booked'})
     
+    // add user
+    if (update.email) {
+      return res.status(400).send({error: 'Cannot add new email id!!'});
+    } else if (update.firstName || update.lastName) {
+      const userDetail = await User.findOne({"_id": req.user}).updateOne({"$set": update})
+      if(!userDetail) return res.status(400).send({error: 'Fail to add user detail'});
+    } 
+
     const result = await BusSchema.findOneAndUpdate({seatNumber:seatNumber}, update, {new:true})
     .populate('userDetail', 'firstName lastName email')
 
-    if(!result) res.status(400).send({errorMessage: 'Incorrect seat No'});
+    if(!result) return res.status(400).send({errorMessage: 'Incorrect seat No'});
     res.send(result)
   } catch (err) {
+    console.log(err)
     res.status(500).send(err)
   }
 }
@@ -50,7 +59,7 @@ const updateBookTicket = async (req, res) => {
 
     if(!result) return res.status(400).send({errorMessage: 'Incorrect seat No'});
 
-    return res.send(result)
+    return res.send({message: "upadted"})
   } catch (err) {
     console.log(err)
     return res.status(500).send(err)
@@ -83,15 +92,14 @@ const fetchBookedTicketDetail = async (req, res) => {
     if(!result) return res.status(400).send({errorMessage: 'Incorrect seat No'});
     return res.send(result)
   } catch (err) {
+    console.log(err)
     return res.status(500).send(err)
   }
 }
 
 const addTicketDetailManually = async (req, res) => {
   if (!req.body) {
-    return res
-      .status(500)
-      .json({ errorMessage: "Please enter data" });
+    return res.status(500).json({ errorMessage: "Please enter data" });
   }
   const result = await BusSchema.insertMany(req.body)
   res.send(result)
@@ -107,9 +115,9 @@ const resetTicket = async (req, res) => {
         "$set": 
         {seatStatus: 'OPEN'}
     })
-    res.send(result)
+    return res.send(result)
   } catch (err) {
-    res.status(500).send(err)
+    return res.status(500).send(err)
   }
 }
 
