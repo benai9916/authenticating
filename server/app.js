@@ -23,12 +23,10 @@ mongoose.connect(process.env.MONGO_URL_CONNECT, {
   .then(() => app.listen(PORT, () => console.log(`Server started on port ${PORT}`)))
   .catch((error) => console.log('Encounter Error => ',error));
 
-// route
-<<<<<<< HEAD
+// root route
 app.get('/', (req, res)=>{
   res.send('Works!!')
 })
-=======
->>>>>>> e310d5254ca58d7fb59e737ea52a7223bc9b3168
+
 app.use('/api/v1/ticket', ticketRoute)
 app.use('/api/v1', userRouter)
