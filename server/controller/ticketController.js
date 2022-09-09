@@ -92,6 +92,7 @@ const fetchBookedTicketDetail = async (req, res) => {
     if(!result) return res.status(400).send({errorMessage: 'Incorrect seat No'});
     return res.send(result)
   } catch (err) {
+    console.log(err)
     return res.status(500).send(err)
   }
 }
